@@ -2,7 +2,7 @@
 
 # TryHackMe Writeups
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=18&duration=3000&pause=1200&color=A78BFA&center=true&vCenter=true&repeat=true&width=600&height=45&lines=Offensive+Security+%7C+Technical+Writeups;Explore.+Analyze.+Document.;Learning+Through+Hands-On+Challenges." alt="Animated typing banner" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=18&duration=3000&pause=1200&color=8B5CF6&center=true&vCenter=true&repeat=true&width=600&height=45&lines=Offensive+Security+%7C+Technical+Writeups;Explore.+Analyze.+Document.;Learning+Through+Hands-On+Challenges." alt="Animated typing banner" />
 
 <br>
 
