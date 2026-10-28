@@ -1,3 +1,17 @@
+<div align="center">
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=24&duration=3200&pause=1400&color=38BDF8&center=true&vCenter=true&width=760&height=55&lines=ANONYMOUS+PLAYGROUND;TRYHACKME+%7C+TECHNICAL+WRITEUP" alt="Anonymous Playground animated title" />
+
+<br>
+
+![Platform](https://img.shields.io/badge/Platform-TryHackMe-0D1117?style=for-the-badge&logo=tryhackme&logoColor=white&labelColor=1F2937)
+![Difficulty](https://img.shields.io/badge/Difficulty-Medium-0D1117?style=for-the-badge&labelColor=0369A1)
+![Category](https://img.shields.io/badge/Offensive-Security-0D1117?style=for-the-badge&labelColor=155E75)
+
+</div>
+
+---
+
 # TryHackMe: Anonymous Playground — In-Depth Professional Writeup
 
 **Room Link:** [Anonymous Playground](https://tryhackme.com/room/anonymousplayground)  
@@ -231,7 +245,7 @@ Analyzing the ciphertext components:
    - Uppercase `'A'` to `'Z'` spans decimal `65` to `90` (`01000001` to `01011010` in binary).
    - Lowercase `'a'` to `'z'` spans decimal `97` to `122` (`01100001` to `01111010` in binary).
    - Applying a bitwise AND with `31` (`00011111` in binary) strips the upper ASCII case flags and isolates the lower 5 bits, mapping both `'A'`/`'a'` to `1`, `'B'`/`'b'` to `2`, ..., `'Z'`/`'z'` to `26`:
-     $$\text{Pos}(c) = \text{ord}(c) \ \& \ 31$$
+     `Pos(c) = ord(c) & 31`
 4. **Modulo Transformation:**
    For each adjacent pair $(c_{2k}, c_{2k+1})$:
    $$\text{Sum}_k = (\text{Pos}(c_{2k}) + \text{Pos}(c_{2k+1})) \pmod{26}$$
@@ -240,7 +254,7 @@ Analyzing the ciphertext components:
 
 ### Step-by-Step Manual Trace for Username (`hEzAdCfHzA`)
 
-| Step | Pair | Chars | Positions ($\text{ord} \ \& \ 31$) | Sum | Modulo 26 | Character ($\text{chr}(\text{val}+64)$) |
+| Step | Pair | Chars | Positions (`ord & 31`) | Sum | Modulo 26 | Character ($\text{chr}(\text{val}+64)$) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | 1 | $(c_0, c_1)$ | `h`, `E` | $8, 5$ | $8 + 5 = 13$ | $13 \pmod{26} = 13$ | `M` (`m`) |
 | 2 | $(c_2, c_3)$ | `z`, `A` | $26, 1$ | $26 + 1 = 27$ | $27 \pmod{26} = 1$ | `A` (`a`) |
@@ -509,7 +523,7 @@ According to the disassembly, the target function call_bash has two possible ent
 Under the standard x86_64 Linux System V AMD64 ABI, the stack must be 16-byte aligned before calling library routines like system(). Overwriting the saved instruction pointer directly with 0x400658 bypasses the initial push rbp prologue instruction, preventing a movaps alignment fault during the downstream system("/bin/sh") execution.
 
   Converted to 64-bit Little-Endian byte representation:
-$$\texttt{\textbackslash x58\textbackslash x06\textbackslash x40\textbackslash x00\textbackslash x00\textbackslash x00\textbackslash x00\textbackslash x00}$$
+`\x58\x06\x40\x00\x00\x00\x00\x00`
 
 ### 7.3 Payload Construction & Execution
 
