@@ -26,7 +26,7 @@ The objective is to maintain a structured knowledge base that reflects continuou
 
 | Room | Difficulty | Writeup |
 |:-----|:----------:|:-------:|
-| *Coming Soon* | — | — |
+| *Anonymous Playground* | ![Hard](https://img.shields.io/badge/Hard-DC2626?style=flat-square&labelColor=DC2626&color=DC2626) | [View Writeup](./Anonymous%20Playground/Anonymous%20Playground.md) |
 
 > **Note:** This collection will continue to grow as new challenges are completed and documented.
 
