@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=24&duration=3200&pause=1400&color=38BDF8&center=true&vCenter=true&width=760&height=55&lines=ANONYMOUS+PLAYGROUND;TRYHACKME+%7C+TECHNICAL+WRITEUP" alt="Anonymous Playground animated title" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=24&duration=3200&pause=1400&color=DC2626&center=true&vCenter=true&width=760&height=55&lines=ANONYMOUS+PLAYGROUND;TRYHACKME+%7C+TECHNICAL+WRITEUP" alt="Anonymous Playground animated title" />
 
 <br>
 
