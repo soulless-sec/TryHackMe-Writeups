@@ -1,0 +1,1 @@
+# TryHackMe — Anonymous Playground
