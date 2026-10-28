@@ -5,7 +5,7 @@
 <br>
 
 ![Platform](https://img.shields.io/badge/Platform-TryHackMe-0D1117?style=for-the-badge&logo=tryhackme&logoColor=white&labelColor=1F2937)
-![Difficulty](https://img.shields.io/badge/Difficulty-Medium-0D1117?style=for-the-badge&labelColor=0369A1)
+![Difficulty](https://img.shields.io/badge/Difficulty-Hard-0D1117?style=for-the-badge&labelColor=DC2626)
 ![Category](https://img.shields.io/badge/Offensive-Security-0D1117?style=for-the-badge&labelColor=155E75)
 
 </div>
@@ -15,7 +15,7 @@
 # TryHackMe: Anonymous Playground — In-Depth Professional Writeup
 
 **Room Link:** [Anonymous Playground](https://tryhackme.com/room/anonymousplayground)  
-**Difficulty:** Medium  
+**Difficulty:** Hard  
 **Author:** Rhys / Operative  
 **Target Platform:** Linux (Ubuntu 20.04.6 LTS / Kernel 5.15.0-139-generic, x86_64)  
 **Focus Areas:** Network Reconnaissance, Insecure Cookie-Based Authorization, Custom Cryptographic Reversal, Linux Binary Exploitation (x86_64 Stack Buffer Overflow / ret2win), and Crontab Wildcard Parameter Injection (GTFOBins).
