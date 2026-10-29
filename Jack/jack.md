@@ -1,3 +1,22 @@
+<div align="center">
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=24&duration=2800&pause=1200&color=DC2626&center=true&vCenter=true&repeat=true&width=780&height=58&lines=TryHackMe+%7C+Jack;Hard+Machine+%7C+Technical+Walkthrough;Enumerate.+Exploit.+Escalate." alt="Jack animated typing header" />
+
+<br>
+
+![Platform](https://img.shields.io/badge/PLATFORM-TRYHACKME-0D1117?style=for-the-badge&labelColor=21262D)
+![Difficulty](https://img.shields.io/badge/DIFFICULTY-HARD-0D1117?style=for-the-badge&labelColor=DC2626)
+![Focus](https://img.shields.io/badge/FOCUS-OFFENSIVE_SECURITY-0D1117?style=for-the-badge&labelColor=21262D)
+
+<br>
+
+[![Room](https://img.shields.io/badge/TRYHACKME-OPEN_ROOM-DC2626?style=for-the-badge)](https://tryhackme.com/room/jack)
+[![Repository](https://img.shields.io/badge/BACK-TO_COLLECTION-21262D?style=for-the-badge)](../README.md)
+
+</div>
+
+---
+
 # TryHackMe: Jack — Complete Walkthrough & Writeup
 
 - **Target Machine:** 10.49.180.45
