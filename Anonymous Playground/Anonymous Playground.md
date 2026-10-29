@@ -11,7 +11,7 @@
 ![Category](https://img.shields.io/badge/CATEGORY-OFFENSIVE_SECURITY-0D1117?style=for-the-badge&labelColor=21262D)
 
 <br>
-
+</div>
 ---
 
 # TryHackMe: Anonymous Playground — In-Depth Professional Writeup
