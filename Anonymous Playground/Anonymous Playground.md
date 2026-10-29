@@ -1,14 +1,16 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=24&duration=3200&pause=1400&color=DC2626&center=true&vCenter=true&width=760&height=55&lines=ANONYMOUS+PLAYGROUND;TRYHACKME+%7C+TECHNICAL+WRITEUP" alt="Anonymous Playground animated title" />
+# Anonymous Playground
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=19&duration=2800&pause=1200&color=DC2626&center=true&vCenter=true&repeat=true&width=600&height=50&lines=TryHackMe+%7C+Anonymous+Playground;Offensive+Security+%7C+Hard+Challenge;Enumeration+%E2%86%92+Exploitation+%E2%86%92+Root" alt="Animated typing header" />
 
 <br>
 
-![Platform](https://img.shields.io/badge/Platform-TryHackMe-0D1117?style=for-the-badge&logo=tryhackme&logoColor=white&labelColor=1F2937)
-![Difficulty](https://img.shields.io/badge/Difficulty-Hard-0D1117?style=for-the-badge&labelColor=DC2626)
-![Category](https://img.shields.io/badge/Offensive-Security-0D1117?style=for-the-badge&labelColor=155E75)
+![Platform](https://img.shields.io/badge/PLATFORM-TRYHACKME-0D1117?style=for-the-badge&logo=tryhackme&logoColor=white&labelColor=21262D)
+![Difficulty](https://img.shields.io/badge/DIFFICULTY-HARD-0D1117?style=for-the-badge&labelColor=DC2626)
+![Category](https://img.shields.io/badge/CATEGORY-OFFENSIVE_SECURITY-0D1117?style=for-the-badge&labelColor=21262D)
 
-</div>
+<br>
 
 ---
 
