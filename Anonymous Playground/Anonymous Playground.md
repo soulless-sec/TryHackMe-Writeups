@@ -12,6 +12,7 @@
 
 <br>
 </div>
+
 ---
 
 # TryHackMe: Anonymous Playground — In-Depth Professional Writeup
