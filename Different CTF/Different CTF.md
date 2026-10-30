@@ -1,15 +1,3 @@
-<div align="center">
-
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=23&duration=2800&pause=1100&color=DC2626&center=true&vCenter=true&repeat=true&width=700&height=55&lines=TryHackMe+%7C+Different+CTF;Hard+Difficulty+%7C+Technical+Walkthrough" alt="Different CTF animated heading" />
-
-![Platform](https://img.shields.io/badge/PLATFORM-TRYHACKME-0D1117?style=for-the-badge&labelColor=21262D)
-![Difficulty](https://img.shields.io/badge/DIFFICULTY-HARD-0D1117?style=for-the-badge&labelColor=DC2626)
-![Focus](https://img.shields.io/badge/FOCUS-OFFENSIVE_SECURITY-0D1117?style=for-the-badge&labelColor=21262D)
-
-</div>
-
----
-
 # Different CTF — TryHackMe Walkthrough
 
 **Room:** Different CTF  
@@ -23,6 +11,7 @@
 
 ## Table of Contents
 
+- [Executive Summary](#executive-summary)
 - [Target Assessment & Attack Path Overview](#target-assessment--attack-path-overview)
 - [1. Reconnaissance & Port Scanning](#1-reconnaissance--port-scanning)
 - [2. Web Enumeration & Virtual Host Discovery](#2-web-enumeration--virtual-host-discovery)
@@ -32,12 +21,28 @@
 - [6. Lateral Movement to `hakanbey` (sucrack & Wordlist Mutation)](#6-lateral-movement-to-hakanbey-sucrack--wordlist-mutation)
 - [7. Privilege Escalation to `root` (SUID Reversing & CyberChef)](#7-privilege-escalation-to-root-suid-reversing--cyberchef)
 - [8. Flag Summary](#8-flag-summary)
+- [9. Security Findings & Remediation](#9-security-findings--remediation)
+- [10. Conclusion](#10-conclusion)
+
+---
+
+## Executive Summary
+
+The documented attack chain demonstrates how exposed content, reused password conventions, and unsafe file permissions can compound into full host compromise. The initial foothold was obtained by overwriting a PHP entry point through authenticated FTP access; subsequent local credential recovery and a custom privileged binary led to root access.
+
+**Scope:** This is a TryHackMe lab walkthrough, not a production penetration test. Findings and remediation below describe the behavior observed in this environment. Severity labels are qualitative and are **not** validated CVSS scores.
+
+### Evidence and reporting conventions
+
+- Commands and terminal outputs are reproduced verbatim from the original walkthrough, including full scan output.
+- Flags, discovered credentials, target addresses, and screenshot references are retained as originally recorded.
+- The findings section distinguishes confirmed exploitation from inferred root causes or potential impact.
 
 ---
 
 ## Target Assessment & Attack Path Overview
 
-Different CTF is a great machine that feels less like a generic box and more like a puzzle chain where each step gives you a subtle clue for the next. The overall attack path breaks down into these distinct stages:
+This assessment documents a multi-stage compromise of the Different CTF lab. The attack begins with exposed web resources and FTP access, progresses through credential discovery and writable web content, and ends with local account compromise and root access. The following diagram summarizes the observed sequence:
 
 ```
 [Port 80 / 21 Open]
@@ -90,7 +95,7 @@ Different CTF is a great machine that feels less like a generic box and more lik
 
 ## 1. Reconnaissance & Port Scanning
 
-I kicked things off with `rustscan` piped into `nmap` to quickly scan all ports and run default service detection scripts.
+I used `rustscan` to identify reachable TCP services and passed the discovered ports to `nmap` for service fingerprinting and default script checks. The complete command output is retained below as collected evidence.
 
 ```bash
 ┌──(alphax㉿soulless)-[~/…/Cyber-Platforms/TryHackMe/CTF/Different CTF]
@@ -224,6 +229,10 @@ Nmap done: 1 IP address (1 host up) scanned in 25.94 seconds
            Raw packets sent: 68 (5.302KB) | Rcvd: 48 (6.727KB)
 ```
 
+### Assessment of exposed services
+
+The scan identified FTP and HTTP as the primary reachable entry points. Service banners support technology identification but do not, by themselves, establish exploitable vulnerabilities.
+
 The scan returned only two ports:
 - **Port 21:** vsftpd 3.0.3 (Standard FTP)
 - **Port 80:** Apache 2.4.29 running on Ubuntu, hosting a WordPress 5.6 site.
@@ -293,7 +302,7 @@ Shellcodes: No Results
 Papers: No Results
 ```
 
-Nothing directly exploitable here without credentials, so I ran a directory brute-force with `gobuster`:
+The `searchsploit` results did not establish an applicable exploit for this configuration. I continued with content discovery using `gobuster`:
 
 ```bash
 ┌──(alphax㉿soulless)-[~/…/Cyber-Platforms/TryHackMe/CTF/Different CTF]
@@ -364,7 +373,7 @@ austrailian-bulldog-ant 100%[=============================>]  57.63K  15.3KB/s  
 2026-10-30 11:52:20 (15.3 KB/s) - ‘austrailian-bulldog-ant.jpg’ saved [59010/59010]
 ```
 
-A 50,000-line custom wordlist sitting right next to a JPEG file is a classic CTF hint for steganography. Trying `steghide` with an empty passphrase failed:
+The exposed directory contained both a JPEG and a 50,000-entry wordlist. This pairing justified testing whether the image carried passphrase-protected embedded data. An initial `steghide` extraction with an empty passphrase failed:
 
 ```bash
 ┌──(alphax㉿soulless)-[~/…/Cyber-Platforms/TryHackMe/CTF/Different CTF]
@@ -834,7 +843,7 @@ www-data@ubuntu:/tmp/sucrack/src$ ./sucrack -u hakanbey -w 100 wordlist2.txt
 password is: 123adanasubaru
 ```
 
-Bingo! We got the password:
+The local password attack recovered the following credentials:
 - **User:** `hakanbey`
 - **Password:** `123adanasubaru`
 
@@ -893,7 +902,7 @@ hakanbey@ubuntu:~$ find / -perm -4000 -type f 2>/dev/null
 /usr/sbin/exim4
 ```
 
-Notice `/usr/bin/binary`. This is completely non-standard.
+The presence of `/usr/bin/binary` warrants further inspection because it is an unfamiliar SUID executable. Its presence alone does not prove a privilege-escalation vulnerability; its behavior and effective privileges must be assessed.
 
 ### Analyzing `/usr/bin/binary` with ltrace
 
@@ -915,6 +924,8 @@ __isoc99_fscanf(0, 0x55928d6daedd, 0x7ffe9ec78940, 1 <no return ...>
 +++ killed by SIGSEGV +++
 ```
 
+The trace reveals the string-building and comparison logic. Note that tracing a SUID program can alter privilege behavior; the failed `fopen()` and segmentation fault in this trace should not be treated as evidence of successful privileged file access.
+
 In the trace, the binary runs multiple `strcat()` calls building up the target string:
 - `"war"` + `"zone"` + `"in"` + `"ada"` + `"na"` = `"warzoneinadana"`
 
@@ -933,7 +944,7 @@ Copy /root/root.jpg ==> /home/hakanbey/root.jpg
 The binary displays an interesting hint:
 `Hint! : Hexeditor 00000020 ==> ???? ==> /home/hakanbey/Desktop/root.jpg (CyberChef)`
 
-And it copied `/root/root.jpg` to our home directory (`/home/hakanbey/root.jpg`).
+The untraced execution reported copying `/root/root.jpg` to `/home/hakanbey/root.jpg`; the subsequent file listing confirms that the image was present in the user home directory. This observed file disclosure, rather than the traced crash, is the relevant security outcome.
 
 ### Inspecting `root.jpg` & CyberChef Decoding
 
@@ -1023,7 +1034,7 @@ root@ubuntu:~# cat root.txt
 THM{c5a9d3e4147a13cbd1ca24b014466a6c}
 ```
 
-We have full root access and the final flag!
+The resulting session ran as UID 0, confirming root-level access within the lab. The final flag was retrieved from `/root/root.txt`.
 
 ---
 
@@ -1034,3 +1045,31 @@ We have full root access and the final flag!
 | **Web Flag** | `/var/www/html/wwe3bbfla4g.txt` | `THM{343a7e2064a1d992c01ee201c346edff}` |
 | **User Flag** | `/home/hakanbey/user.txt` | `THM{8ba9d7715fe726332b7fc9bd00e67127}` |
 | **Root Flag** | `/root/root.txt` | `THM{c5a9d3e4147a13cbd1ca24b014466a6c}` |
+
+---
+
+## 9. Security Findings & Remediation
+
+The following table maps the **observed lab behavior** to defensive controls. CWE mappings are indicative classifications; the walkthrough does not establish CVE applicability or calculate CVSS scores.
+
+| Finding | Evidence from walkthrough | Security impact | Suggested CWE | Recommended remediation |
+| :--- | :--- | :--- | :--- | :--- |
+| Directory listing exposes sensitive resources | `/announcements/` exposed an image and wordlist | Unauthenticated discovery of materials later used for credential extraction | CWE-548 | Disable directory indexing; remove sensitive files from public web paths |
+| Credentials stored in accessible application configuration | FTP access permitted retrieval of `wp-config.php` | Database credentials became available to the FTP account | CWE-200 | Restrict FTP access and configuration-file read permissions; rotate exposed credentials |
+| Writable PHP entry point via FTP | `index.php` was overwritten and visiting the subdomain produced a `www-data` shell | Server-side code execution | CWE-732 | Enforce least-privilege file ownership; prohibit deployment-account modification of executable web content where unnecessary |
+| Predictable local password convention | Known `123adana` prefix enabled targeted `sucrack` candidate generation | Local account compromise | CWE-521 | Require unique, high-entropy passwords; monitor repeated authentication failures |
+| Privileged binary discloses a root-owned artifact | `/usr/bin/binary` copied `/root/root.jpg` into a user-accessible directory | Exposure of data used to recover the root password | CWE-200 | Audit SUID executables, remove unnecessary SUID privileges, and avoid storing credentials in recoverable artifacts |
+
+### Validation boundaries
+
+- The walkthrough confirms the resulting access and file disclosures in the lab; it does not demonstrate that a particular public CVE was exploited.
+- The exact implementation defect in the custom SUID binary was not established through source review or full reverse engineering. Its observed behavior supports a finding of privileged information exposure.
+- Password cracking was performed against the local lab account. A production assessment would require explicit authorization, rate controls, and a defined testing scope.
+
+---
+
+## 10. Conclusion
+
+This lab illustrates a chained compromise rather than a single isolated software flaw. Web content exposure led to FTP credentials, FTP access exposed application secrets and allowed modification of executable PHP, and the resulting shell enabled local account compromise. Finally, a privileged custom binary disclosed an artifact from which root credentials were recovered.
+
+The primary defensive lessons are to limit public file exposure, enforce least-privilege access to web application files and configuration, prevent predictable credential patterns, and audit custom privileged executables for unintended data disclosure.
