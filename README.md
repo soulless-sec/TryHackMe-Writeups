@@ -30,6 +30,7 @@ The objective is to maintain a structured knowledge base that reflects continuou
 | *Jack* | ![Hard](https://img.shields.io/badge/Hard-DC2626?style=flat-square) | [View Writeup](./Jack/Jack.md) |
 | *Different CTF* | ![Hard](https://img.shields.io/badge/Hard-DC2626?style=flat-square) | [View Writeup](./Different%20CTF/Different%20CTF.md) |
 | *Rabbit Hole* | ![Hard](https://img.shields.io/badge/Hard-DC2626?style=flat-square) | [View Writeup](./Rabbit%20Hole/Rabbit%20Hole.md) |
+| *Exfilibur* | ![Hard](https://img.shields.io/badge/Hard-DC2626?style=flat-square) | [View Writeup](./Exfilibur/Exfilibur.md)
 
 > **Note:** This collection will continue to grow as new challenges are completed and documented.
 
