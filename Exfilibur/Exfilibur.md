@@ -12,12 +12,13 @@
 
 # TryHackMe: Exfilibur — Technical Walkthrough
 
+<br>
 
 ## Machine Overview
 
 | Detail | Information |
 | :--- | :--- |
-| **Room / Target** | Exfilibur |
+| **Room** | Exfilibur |
 | **Operating System** | Windows Server 2019 (Build 10.0.17763) |
 | **Target IP** | `10.129.150.180` |
 | **Difficulty** | Hard |
