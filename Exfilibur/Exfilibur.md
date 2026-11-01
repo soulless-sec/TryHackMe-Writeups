@@ -12,7 +12,6 @@
 
 # TryHackMe: Exfilibur — Technical Walkthrough
 
----
 
 ## Machine Overview
 
