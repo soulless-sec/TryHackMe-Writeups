@@ -1,12 +1,10 @@
 <div align="center">
 
-# TryHackMe — Exfilibur
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=24&duration=2800&pause=1200&color=DC2626&center=true&vCenter=true&repeat=true&width=720&height=60&lines=TryHackMe+%7C+Exfilibur;Hard+Difficulty+%7C+BlogEngine.NET+Exploitation;XXE+%E2%86%92+Data+Exfiltration+%E2%86%92+Privilege+Escalation" alt="Exfilibur animated typing header" />
 
-![Hard](https://img.shields.io/badge/Difficulty-Hard-DC2626?style=for-the-badge)
-![Windows](https://img.shields.io/badge/OS-Windows_Server_2019-0078D4?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-TryHackMe-212C42?style=for-the-badge)
-
-**A Windows-based challenge covering web exploitation, data exfiltration, lateral movement, and privilege escalation.**
+![Platform](https://img.shields.io/badge/PLATFORM-TRYHACKME-0D1117?style=for-the-badge&labelColor=21262D)
+![Difficulty](https://img.shields.io/badge/DIFFICULTY-HARD-0D1117?style=for-the-badge&labelColor=DC2626)
+![Category](https://img.shields.io/badge/CATEGORY-WEB_%26_WINDOWS_EXPLOITATION-0D1117?style=for-the-badge&labelColor=21262D)
 
 </div>
 
